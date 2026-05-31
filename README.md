@@ -6,11 +6,18 @@ An XML alternative that uses a more concise, bracket-free syntax with support fo
 
 ### Basic Syntax
 
-XIML is a markup language that represents hierarchical data without angle brackets. Instead, it uses braces `{}` for nesting and a pipe `|` delimiter for attributes. Every tag must have opening and closing braces, even when empty.
+XIML is a markup language that represents hierarchical data without angle brackets. Instead, it uses braces `{}` for nesting and a pipe `|` delimiter for attributes. Every tag must have opening and closing braces.
 
 ### Tags and Nesting
 
-Tags are written as identifiers followed by their content in braces. The opening brace is placed on a new line below the tag name:
+Tags are written as identifiers followed by their content in braces. For tags with small content, the opening brace can be placed on the same line:
+
+```ximl
+title { My Document }
+created { 2024-01-15 }
+```
+
+For more complex structures, the opening brace can be placed on a new line:
 
 ```ximl
 tagname
@@ -22,14 +29,12 @@ tagname
 Empty tags still require braces:
 
 ```ximl
-emptytag
-{
-}
+emptytag { }
 ```
 
 ### Attributes
 
-Attributes are specified after a tag name, each on a new line with pipes forming a vertical line to the tag. There is no equals sign between attribute names and values—the value immediately follows the pipe:
+Attributes are specified after a tag name, each on a new line with pipes forming a vertical line to the tag. There is no equals sign between attribute names and values—the value immediately follows the attribute name:
 
 ```ximl
 tagname
@@ -50,10 +55,7 @@ To specify a default namespace for a tag, use the special attribute name `@`:
 root
 | @ http://example.com/ns
 {
-  child
-  {
-    // inherits default namespace
-  }
+  child { }
 }
 ```
 
@@ -65,10 +67,7 @@ To declare a namespace with a prefix, use `@prefixname` followed by the namespac
 root
 | @myprefix http://example.com/myns
 {
-  myprefix:child
-  {
-    // uses the myprefix namespace
-  }
+  myprefix:child { }
 }
 ```
 
@@ -105,14 +104,8 @@ root
   | version 1.0
   | author John
   {
-    title
-    {
-      My Document
-    }
-    created
-    {
-      2024-01-15
-    }
+    title { My Document }
+    created { 2024-01-15 }
   }
 
   /* Multi-line comment
@@ -123,10 +116,7 @@ root
     message
     | type greeting
     {
-      text
-      {
-        Hello World
-      }
+      text { Hello World }
     }
   }
 }
@@ -156,7 +146,7 @@ This is equivalent to XML:
 ## Key Features
 
 - **No angle brackets**: Cleaner, more readable syntax
-- **Brace-based nesting**: Clear hierarchical structure with mandatory braces
+- **Flexible brace placement**: Braces can be on the same line for simple content or on new lines for complex structures
 - **Pipe-aligned attributes**: Attributes aligned vertically with pipes for visual clarity, no equals signs
 - **Namespace support**: Both default and prefixed namespaces
 - **Comment support**: C++ style single-line and multi-line comments
