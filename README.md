@@ -6,24 +6,36 @@ An XML alternative that uses a more concise, bracket-free syntax with support fo
 
 ### Basic Syntax
 
-XIML is a markup language that represents hierarchical data without angle brackets. Instead, it uses braces `{}` for nesting and a pipe `|` delimiter for attributes.
+XIML is a markup language that represents hierarchical data without angle brackets. Instead, it uses braces `{}` for nesting and a pipe `|` delimiter for attributes. Every tag must have opening and closing braces, even when empty.
 
 ### Tags and Nesting
 
-Tags are written as identifiers followed by their content in braces:
+Tags are written as identifiers followed by their content in braces. The opening brace is placed on a new line below the tag name:
 
 ```
-tagname {
+tagname
+{
   // content goes here
+}
+```
+
+Empty tags still require braces:
+
+```
+emptytag
+{
 }
 ```
 
 ### Attributes
 
-Attributes are specified after a tag name, delimited by pipes `|`. There is no equals sign between attribute names and values—the value immediately follows the pipe:
+Attributes are specified after a tag name, each on a new line with pipes forming a vertical line to the tag. There is no equals sign between attribute names and values—the value immediately follows the pipe:
 
 ```
-tagname | attrname attrvalue | anothername anothervalue {
+tagname
+| attrname attrvalue
+| anothername anothervalue
+{
   // content
 }
 ```
@@ -35,8 +47,11 @@ tagname | attrname attrvalue | anothername anothervalue {
 To specify a default namespace for a tag, use the special attribute name `@`:
 
 ```
-root | @ http://example.com/ns {
-  child {
+root
+| @ http://example.com/ns
+{
+  child
+  {
     // inherits default namespace
   }
 }
@@ -47,8 +62,11 @@ root | @ http://example.com/ns {
 To declare a namespace with a prefix, use `@prefixname` followed by the namespace URI:
 
 ```
-root | @myprefix http://example.com/myns {
-  myprefix:child {
+root
+| @myprefix http://example.com/myns
+{
+  myprefix:child
+  {
     // uses the myprefix namespace
   }
 }
@@ -69,7 +87,8 @@ XIML supports C++ style comments:
   that spans several lines
 */
 
-tagname {
+tagname
+{
   // Another comment
 }
 ```
@@ -77,18 +96,37 @@ tagname {
 ### Complete Example
 
 ```
-root | @ http://example.com/root | @soap http://schemas.xmlsoap.org/soap/envelope/ {
+root
+| @ http://example.com/root
+| @soap http://schemas.xmlsoap.org/soap/envelope/
+{
   // Default namespace comments
-  metadata | version 1.0 | author John {
-    title My Document
-    created 2024-01-15
+  metadata
+  | version 1.0
+  | author John
+  {
+    title
+    {
+      My Document
+    }
+    created
+    {
+      2024-01-15
+    }
   }
 
   /* Multi-line comment
      explaining a section */
-  soap:body | id main-body {
-    message | type greeting {
-      text Hello World
+  soap:body
+  | id main-body
+  {
+    message
+    | type greeting
+    {
+      text
+      {
+        Hello World
+      }
     }
   }
 }
@@ -118,8 +156,8 @@ This is equivalent to XML:
 ## Key Features
 
 - **No angle brackets**: Cleaner, more readable syntax
-- **Brace-based nesting**: Clear hierarchical structure
-- **Pipe-delimited attributes**: Simple attribute specification without equals signs
+- **Brace-based nesting**: Clear hierarchical structure with mandatory braces
+- **Pipe-aligned attributes**: Attributes aligned vertically with pipes for visual clarity, no equals signs
 - **Namespace support**: Both default and prefixed namespaces
 - **Comment support**: C++ style single-line and multi-line comments
 - **XML-isomorphic**: Can be losslessly converted to and from XML
