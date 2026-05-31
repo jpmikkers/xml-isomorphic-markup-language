@@ -1,0 +1,2 @@
+# Define XIML file extension and language
+*.ximl linguist-language=XIML
