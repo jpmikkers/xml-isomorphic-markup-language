@@ -12,7 +12,7 @@ XIML is a markup language that represents hierarchical data without angle bracke
 
 Tags are written as identifiers followed by their content in braces. The opening brace is placed on a new line below the tag name:
 
-```
+```ximl
 tagname
 {
   // content goes here
@@ -21,7 +21,7 @@ tagname
 
 Empty tags still require braces:
 
-```
+```ximl
 emptytag
 {
 }
@@ -31,7 +31,7 @@ emptytag
 
 Attributes are specified after a tag name, each on a new line with pipes forming a vertical line to the tag. There is no equals sign between attribute names and values—the value immediately follows the pipe:
 
-```
+```ximl
 tagname
 | attrname attrvalue
 | anothername anothervalue
@@ -46,7 +46,7 @@ tagname
 
 To specify a default namespace for a tag, use the special attribute name `@`:
 
-```
+```ximl
 root
 | @ http://example.com/ns
 {
@@ -61,7 +61,7 @@ root
 
 To declare a namespace with a prefix, use `@prefixname` followed by the namespace URI:
 
-```
+```ximl
 root
 | @myprefix http://example.com/myns
 {
@@ -79,7 +79,7 @@ XIML supports C++ style comments:
 - **Single-line comments**: `// comment text`
 - **Multi-line comments**: `/* comment text */`
 
-```
+```ximl
 // This is a single-line comment
 
 /*
@@ -95,7 +95,7 @@ tagname
 
 ### Complete Example
 
-```
+```ximl
 root
 | @ http://example.com/root
 | @soap http://schemas.xmlsoap.org/soap/envelope/
