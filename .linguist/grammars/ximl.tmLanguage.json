@@ -1,0 +1,102 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "XIML",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#tags" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.ximl",
+          "begin": "//",
+          "end": "$",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.ximl" }
+          }
+        },
+        {
+          "name": "comment.block.ximl",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.ximl" }
+          }
+        }
+      ]
+    },
+    "tags": {
+      "patterns": [
+        {
+          "name": "meta.tag.ximl",
+          "begin": "(?<![\\w:])([a-zA-Z_][a-zA-Z0-9_-]*(?::[a-zA-Z_][a-zA-Z0-9_-]*)?)",
+          "end": "(?=\\{|$|//|/\\*)",
+          "beginCaptures": {
+            "1": { "name": "entity.name.tag.ximl" }
+          },
+          "patterns": [
+            { "include": "#attributes" }
+          ]
+        },
+        {
+          "name": "meta.brace.ximl",
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.block.begin.ximl" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.ximl" }
+          },
+          "patterns": [
+            { "include": "#comments" },
+            { "include": "#tags" },
+            { "include": "#values" }
+          ]
+        }
+      ]
+    },
+    "attributes": {
+      "patterns": [
+        {
+          "name": "meta.attribute.ximl",
+          "begin": "^\\s*(\\|)\\s*(@[a-zA-Z_][a-zA-Z0-9_-]*|@|[a-zA-Z_][a-zA-Z0-9_-]*)",
+          "end": "(?=\\||\\{|$|//|/\\*)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.separator.ximl" },
+            "2": { "name": "entity.other.attribute-name.ximl" }
+          },
+          "patterns": [
+            { "include": "#values" }
+          ]
+        }
+      ]
+    },
+    "values": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.ximl",
+          "begin": "\"",
+          "end": "\"",
+          "captures": {
+            "0": { "name": "punctuation.definition.string.ximl" }
+          }
+        },
+        {
+          "name": "string.quoted.single.ximl",
+          "begin": "'",
+          "end": "'",
+          "captures": {
+            "0": { "name": "punctuation.definition.string.ximl" }
+          }
+        },
+        {
+          "name": "constant.numeric.ximl",
+          "match": "\\b(\\d+\\.?\\d*|\\d*\\.\\d+)\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.ximl"
+}
