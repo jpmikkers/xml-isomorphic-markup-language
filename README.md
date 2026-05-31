@@ -6,7 +6,7 @@ An XML alternative that uses a more concise, bracket-free syntax with support fo
 
 ### Basic Syntax
 
-XIML is a markup language that represents hierarchical data without angle brackets. Instead, it uses braces `{}` for nesting and a pipe `|` delimiter for attributes. Every tag must have opening and closing braces.
+XIML is a markup language that represents hierarchical data without angle brackets. Instead, it uses braces `{}` for nesting and a pipe `|` delimiter for attributes. Every tag must have opening and closing braces. XIML is always UTF-8 encoded.
 
 ### Tags and Nesting
 
@@ -32,6 +32,20 @@ Empty tags still require braces:
 emptytag { }
 ```
 
+### Values and Quoting
+
+Attribute values and tag content can optionally be quoted using single (`'`) or double (`"`) quotes. Quoting is useful when leading or trailing spaces are important, or to avoid ambiguity with comments:
+
+```ximl
+tagname
+| description "  spaced content  "
+{
+  content { "  important spaces  " }
+}
+```
+
+Without quotes, spaces are preserved as-is in the source.
+
 ### Attributes
 
 Attributes are specified after a tag name, each on a new line with pipes forming a vertical line to the tag. There is no equals sign between attribute names and values—the value immediately follows the attribute name:
@@ -39,7 +53,7 @@ Attributes are specified after a tag name, each on a new line with pipes forming
 ```ximl
 tagname
 | attrname attrvalue
-| anothername anothervalue
+| anothername "another value"
 {
   // content
 }
@@ -53,7 +67,7 @@ To specify a default namespace for a tag, use the special attribute name `@`:
 
 ```ximl
 root
-| @ http://example.com/ns
+| @ "http://example.com/ns"
 {
   child { }
 }
@@ -65,7 +79,7 @@ To declare a namespace with a prefix, use `@prefixname` followed by the namespac
 
 ```ximl
 root
-| @myprefix http://example.com/myns
+| @myprefix "http://example.com/myns"
 {
   myprefix:child { }
 }
@@ -96,8 +110,8 @@ tagname
 
 ```ximl
 root
-| @ http://example.com/root
-| @soap http://schemas.xmlsoap.org/soap/envelope/
+| @ "http://example.com/root"
+| @soap "http://schemas.xmlsoap.org/soap/envelope/"
 {
   // Default namespace comments
   metadata
@@ -145,8 +159,10 @@ This is equivalent to XML:
 
 ## Key Features
 
+- **UTF-8 encoding**: All XIML files are UTF-8 encoded
 - **No angle brackets**: Cleaner, more readable syntax
 - **Flexible brace placement**: Braces can be on the same line for simple content or on new lines for complex structures
+- **Optional value quoting**: Single or double quotes for values when needed (e.g., for preserving whitespace)
 - **Pipe-aligned attributes**: Attributes aligned vertically with pipes for visual clarity, no equals signs
 - **Namespace support**: Both default and prefixed namespaces
 - **Comment support**: C++ style single-line and multi-line comments
