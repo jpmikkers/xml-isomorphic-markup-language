@@ -1,0 +1,14 @@
+XIML:
+  type: markup
+  color: '#3178c6'
+  aliases:
+    - ximl
+  extensions:
+    - .ximl
+  filenames: []
+  interpreters: []
+  ace_mode: xml
+  tm_scope: source.ximl
+  codemirror_mode: xml
+  codemirror_mime_type: application/xml
+  wrap: true
